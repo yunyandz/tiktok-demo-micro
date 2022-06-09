@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+import "comment.proto";
+
+package comment_service;
+
+option go_package = "comment_service";
+
+service CommentService {
+    rpc PublishComment(comment.PublishCommentRequest) returns (comment.CommentActionResponse);
+    rpc DeleteComment(comment.DeleteCommentRequest) returns (comment.DeleteCommentResponse);
+    rpc GetCommentList(comment.GetCommentListRequest) returns (comment.GetCommentListResponse);
+}

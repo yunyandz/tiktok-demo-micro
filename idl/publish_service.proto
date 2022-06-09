@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+import "response.proto";
+
+package publish_service;
+
+option go_package = "publish_service";
+
+message PublishRequest {
+    string token = 1; // 用户鉴权token​
+    bytes data = 2; // 视频数据​
+    string title = 3; // 视频标题​
+}
+
+service PublishService {
+    rpc Publish(PublishRequest) returns (response.Response);
+}

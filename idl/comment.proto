@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+import "response.proto";
+
+package comment;
+
+option go_package = "comment";
+
+message PublishCommentRequest {
+    uint64 video_id = 1;
+    uint64 user_id = 2;
+    string content = 3;
+}
+
+message CommentActionResponse {
+    response.Response response = 1;
+}
+
+message DeleteCommentRequest {
+    uint64 comment_id = 1;
+    uint64 user_id = 2;
+}
+
+message DeleteCommentResponse {
+    response.Response response = 1;
+}
+
+message GetCommentListRequest {
+    uint64 video_id = 1;
+    uint64 user_id = 2;
+}
+
+message Comment {
+    uint64 id = 1;
+    uint64 user_id = 2;
+    string content = 3;
+    string create_date = 4;
+}
+
+message GetCommentListResponse {
+    response.Response response = 1;
+    repeated Comment comment = 2;
+}

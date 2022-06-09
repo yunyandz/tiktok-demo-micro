@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+import "response.proto";
+import "video.proto";
+
+package feed_service;
+
+option go_package = "feed_service";
+
+message FeedRequest {
+    int64 latest_time = 1;
+    uint64 user_id = 2;
+}
+
+message FeedResPonse {
+    response.Response response = 1;
+    repeated video.Video video = 2;
+    int64 next_time = 3;
+}
+
+service FeedService {
+    rpc GetFeed(FeedRequest) returns (FeedResPonse);
+}

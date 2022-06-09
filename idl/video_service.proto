@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+import "video.proto";
+import "response.proto";
+
+package video_service;
+
+option go_package = "video_service";
+
+service VideoService {
+    rpc LikeVideo(video.LikeVideoRequest) returns (response.Response);
+    rpc DislikeVideo(video.DislikeVideoRequest) returns (response.Response);
+    rpc GetUserVideos(video.GetUserVideosRequest) returns (video.VideoListResponse);
+    rpc GetUserLikedVideos(video.GetUserLikedVideosRequest) returns (video.VideoListResponse);
+}
+
