@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+import "user.proto";
+
+package relation_service;
+
+option go_package = "relation_service";
+
+service RelationService {
+    rpc FollowUser(user.FollowUserRequest) returns (user.UserResponse);
+    rpc UnFollowUser(user.UnFollowUserRequest) returns (user.UserResponse);
+    rpc GetFollowUserList(user.GetFollowUserListRequest) returns (user.UserListResponse);
+    rpc GetFollowerUserList(user.GetFollowerUserListRequest) returns (user.UserListResponse);
+}

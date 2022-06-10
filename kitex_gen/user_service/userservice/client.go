@@ -14,10 +14,6 @@ type Client interface {
 	UserLogin(ctx context.Context, Req *user.UserLoginRequest, callOptions ...callopt.Option) (r *user.UserLoginResponse, err error)
 	UserRegister(ctx context.Context, Req *user.UserRegisterRequest, callOptions ...callopt.Option) (r *user.UserRegisterResponse, err error)
 	GetUser(ctx context.Context, Req *user.GetUserRequest, callOptions ...callopt.Option) (r *user.UserResponse, err error)
-	FollowUser(ctx context.Context, Req *user.FollowUserRequest, callOptions ...callopt.Option) (r *user.UserResponse, err error)
-	UnFollowUser(ctx context.Context, Req *user.UnFollowUserRequest, callOptions ...callopt.Option) (r *user.UserResponse, err error)
-	GetFollowUserList(ctx context.Context, Req *user.GetFollowUserListRequest, callOptions ...callopt.Option) (r *user.UserListResponse, err error)
-	GetFollowerUserList(ctx context.Context, Req *user.GetFollowerUserListRequest, callOptions ...callopt.Option) (r *user.UserListResponse, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -62,24 +58,4 @@ func (p *kUserServiceClient) UserRegister(ctx context.Context, Req *user.UserReg
 func (p *kUserServiceClient) GetUser(ctx context.Context, Req *user.GetUserRequest, callOptions ...callopt.Option) (r *user.UserResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetUser(ctx, Req)
-}
-
-func (p *kUserServiceClient) FollowUser(ctx context.Context, Req *user.FollowUserRequest, callOptions ...callopt.Option) (r *user.UserResponse, err error) {
-	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.FollowUser(ctx, Req)
-}
-
-func (p *kUserServiceClient) UnFollowUser(ctx context.Context, Req *user.UnFollowUserRequest, callOptions ...callopt.Option) (r *user.UserResponse, err error) {
-	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.UnFollowUser(ctx, Req)
-}
-
-func (p *kUserServiceClient) GetFollowUserList(ctx context.Context, Req *user.GetFollowUserListRequest, callOptions ...callopt.Option) (r *user.UserListResponse, err error) {
-	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.GetFollowUserList(ctx, Req)
-}
-
-func (p *kUserServiceClient) GetFollowerUserList(ctx context.Context, Req *user.GetFollowerUserListRequest, callOptions ...callopt.Option) (r *user.UserListResponse, err error) {
-	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.GetFollowerUserList(ctx, Req)
 }

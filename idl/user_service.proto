@@ -10,8 +10,4 @@ service UserService {
     rpc UserLogin(user.UserLoginRequest) returns (user.UserLoginResponse);
     rpc UserRegister(user.UserRegisterRequest) returns (user.UserRegisterResponse);
     rpc GetUser(user.GetUserRequest) returns (user.UserResponse);
-    rpc FollowUser(user.FollowUserRequest) returns (user.UserResponse);
-    rpc UnFollowUser(user.UnFollowUserRequest) returns (user.UserResponse);
-    rpc GetFollowUserList(user.GetFollowUserListRequest) returns (user.UserListResponse);
-    rpc GetFollowerUserList(user.GetFollowerUserListRequest) returns (user.UserListResponse);
 }
