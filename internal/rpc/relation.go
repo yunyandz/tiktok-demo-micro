@@ -10,21 +10,21 @@ import (
 	trace "github.com/kitex-contrib/tracer-opentracing"
 	"github.com/spf13/viper"
 	"github.com/yunyandz/tiktok-demo-micro/internal/constants"
-	"github.com/yunyandz/tiktok-demo-micro/kitex_gen/comment_service/commentservice"
+	"github.com/yunyandz/tiktok-demo-micro/kitex_gen/relation_service/relationservice"
 )
 
 var (
-	commentClient commentservice.Client
-	commentOnce   sync.Once
+	relationClient relationservice.Client
+	relationOnce   sync.Once
 )
 
-func NewCommentClient(cfg viper.Viper) commentservice.Client {
-	commentOnce.Do(func() {
+func NewRelationClient(cfg *viper.Viper) relationservice.Client {
+	relationOnce.Do(func() {
 		r, err := etcd.NewEtcdResolver([]string{cfg.GetString("etcd.addr")})
 		if err != nil {
 			panic(err)
 		}
-		commentClient, err = commentservice.NewClient(
+		relationClient, err = relationservice.NewClient(
 			constants.CommentServiceName,
 			client.WithResolver(r),
 			client.WithLongConnection(connpool.IdleConfig{
@@ -37,5 +37,5 @@ func NewCommentClient(cfg viper.Viper) commentservice.Client {
 			client.WithConnectTimeout(50*time.Millisecond),
 		)
 	})
-	return commentClient
+	return relationClient
 }

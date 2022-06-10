@@ -7,7 +7,7 @@ package publish_service;
 option go_package = "publish_service";
 
 message PublishRequest {
-    string token = 1; // 用户鉴权token​
+    uint64 user_id = 1;
     bytes data = 2; // 视频数据​
     string title = 3; // 视频标题​
 }

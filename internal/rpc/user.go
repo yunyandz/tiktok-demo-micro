@@ -18,7 +18,7 @@ var (
 	userOnce   sync.Once
 )
 
-func NewUserClient(cfg viper.Viper) userservice.Client {
+func NewUserClient(cfg *viper.Viper) userservice.Client {
 	userOnce.Do(func() {
 		r, err := etcd.NewEtcdResolver([]string{cfg.GetString("etcd.addr")})
 		if err != nil {

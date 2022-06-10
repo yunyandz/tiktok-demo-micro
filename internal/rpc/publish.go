@@ -18,7 +18,7 @@ var (
 	publishOnce   sync.Once
 )
 
-func NewPublishClient(cfg viper.Viper) publishservice.Client {
+func NewPublishClient(cfg *viper.Viper) publishservice.Client {
 	publishOnce.Do(func() {
 		r, err := etcd.NewEtcdResolver([]string{cfg.GetString("etcd.addr")})
 		if err != nil {

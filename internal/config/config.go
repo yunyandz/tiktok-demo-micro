@@ -1,6 +1,7 @@
 package config
 
 import (
+	"os"
 	"sync"
 
 	"github.com/spf13/viper"
@@ -37,6 +38,8 @@ func New() *viper.Viper {
 		s3.SetDefault("bucket", "")
 		s3.SetDefault("region", "")
 
+		cfgpath := os.Getenv("TIKTOK_DEMO_MICRO_CONFIG_FILE")
+		cfg.AddConfigPath(cfgpath)
 		cfg.SetConfigName("config")
 		cfg.AddConfigPath(".")
 		cfg.AddConfigPath("/etc/tiktok-demo-micro")

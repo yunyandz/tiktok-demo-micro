@@ -29,11 +29,13 @@ message DislikeVideoRequest {
 }
 
 message GetUserVideosRequest {
-    uint64 user_id = 1;
+    uint64 self_id = 1;
+    uint64 user_id = 2;
 }
 
 message GetUserLikedVideosRequest {
-    uint64 user_id = 1;
+    uint64 self_id = 1;
+    uint64 user_id = 2;
 }
 
 message VideoListResponse {

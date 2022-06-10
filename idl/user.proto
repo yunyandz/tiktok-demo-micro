@@ -47,7 +47,8 @@ message UserResponse {
 }
 
 message GetUserRequest {
-    uint64 user_id = 1;
+    uint64 self_id = 1;
+    uint64 user_id = 2;
 }
 
 message FollowUserRequest {
@@ -61,10 +62,12 @@ message UnFollowUserRequest {
 }
 
 message GetFollowUserListRequest {
-    uint64 user_id = 1;
+    uint64 self_id = 1;
+    uint64 user_id = 2;
 }
 
 message GetFollowerUserListRequest {
-    uint64 user_id = 1;
+    uint64 self_id = 1;
+    uint64 user_id = 2;
 }
 

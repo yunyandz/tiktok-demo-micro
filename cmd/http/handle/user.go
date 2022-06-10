@@ -1,6 +1,11 @@
 package handle
 
-import "github.com/gin-gonic/gin"
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+	"github.com/yunyandz/tiktok-demo-micro/kitex_gen/user"
+)
 
 type User struct {
 	ID            uint64 `json:"id"`
@@ -21,8 +26,28 @@ type RegisterResponse struct {
 	Token  string `json:"token"`
 }
 
-func (h *Handle) UserRegister(c *gin.Context) {
-
+func (h *Handle) Register(c *gin.Context) {
+	var req RegisterRequest
+	if err := c.ShouldBind(&req); err != nil {
+		c.JSON(http.StatusOK, Response{
+			StatusCode: 1,
+			StatusMsg:  err.Error(),
+		})
+		return
+	}
+	r := user.UserRegisterRequest{
+		Username: req.Username,
+		Password: req.Password,
+	}
+	resp, err := h.user.UserRegister(c, &r)
+	if err != nil {
+		c.JSON(http.StatusOK, Response{
+			StatusCode: 1,
+			StatusMsg:  err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusOK, resp)
 }
 
 type LoginRequest struct {
@@ -36,8 +61,28 @@ type LoginResponse struct {
 	Token  string `json:"token"`
 }
 
-func (h *Handle) UserLogin(c *gin.Context) {
-
+func (h *Handle) Login(c *gin.Context) {
+	var req LoginRequest
+	if err := c.ShouldBind(&req); err != nil {
+		c.JSON(http.StatusOK, Response{
+			StatusCode: 1,
+			StatusMsg:  err.Error(),
+		})
+		return
+	}
+	r := user.UserLoginRequest{
+		Username: req.Username,
+		Password: req.Password,
+	}
+	resp, err := h.user.UserLogin(c, &r)
+	if err != nil {
+		c.JSON(http.StatusOK, Response{
+			StatusCode: 1,
+			StatusMsg:  err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusOK, resp)
 }
 
 type UserInfoRequest struct {
@@ -51,5 +96,30 @@ type UserInfoResponse struct {
 }
 
 func (h *Handle) UserInfo(c *gin.Context) {
-
+	var req UserInfoRequest
+	if err := c.ShouldBind(&req); err != nil {
+		c.JSON(http.StatusOK, Response{
+			StatusCode: 1,
+			StatusMsg:  err.Error(),
+		})
+		return
+	}
+	selfid := uint64(0)
+	uc, e := h.getUserClaims(c)
+	if e {
+		selfid = uc.UserId
+	}
+	r := user.GetUserRequest{
+		UserId: req.UserID,
+		SelfId: selfid,
+	}
+	resp, err := h.user.GetUser(c, &r)
+	if err != nil {
+		c.JSON(http.StatusOK, Response{
+			StatusCode: 1,
+			StatusMsg:  err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusOK, resp)
 }

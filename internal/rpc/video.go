@@ -10,21 +10,21 @@ import (
 	trace "github.com/kitex-contrib/tracer-opentracing"
 	"github.com/spf13/viper"
 	"github.com/yunyandz/tiktok-demo-micro/internal/constants"
-	"github.com/yunyandz/tiktok-demo-micro/kitex_gen/feed_service/feedservice"
+	"github.com/yunyandz/tiktok-demo-micro/kitex_gen/video_service/videoservice"
 )
 
 var (
-	feedClient feedservice.Client
-	feedOnce   sync.Once
+	videoClient videoservice.Client
+	videoOnce   sync.Once
 )
 
-func NewFeedClient(cfg viper.Viper) feedservice.Client {
-	feedOnce.Do(func() {
+func NewVideoClient(cfg *viper.Viper) videoservice.Client {
+	videoOnce.Do(func() {
 		r, err := etcd.NewEtcdResolver([]string{cfg.GetString("etcd.addr")})
 		if err != nil {
 			panic(err)
 		}
-		feedClient, err = feedservice.NewClient(
+		videoClient, err = videoservice.NewClient(
 			constants.CommentServiceName,
 			client.WithResolver(r),
 			client.WithLongConnection(connpool.IdleConfig{
@@ -37,5 +37,5 @@ func NewFeedClient(cfg viper.Viper) feedservice.Client {
 			client.WithConnectTimeout(50*time.Millisecond),
 		)
 	})
-	return feedClient
+	return videoClient
 }
