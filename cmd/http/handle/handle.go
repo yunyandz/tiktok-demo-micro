@@ -18,6 +18,16 @@ type Handle struct {
 	video   videoservice.Client
 }
 
+type Response struct {
+	StatusCode int32  `json:"status_code"`
+	StatusMsg  string `json:"status_msg,omitempty"`
+}
+
+type VideoListResponse struct {
+	Response
+	VideoList []*Video `json:"video_list"`
+}
+
 var (
 	handle *Handle
 	once   sync.Once
